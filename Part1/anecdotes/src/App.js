@@ -8,9 +8,11 @@ const Button = (props) => {
   )
 }
 
-const Display = (props) => {
+const Display = ({arr, anecdotes}) => {
+  let max = Math.max(...arr)
+  let index = arr.indexOf(max)
   return (
-    <p>has {props.num} votes</p>
+    <p>{anecdotes[index]}</p>
   )
 }
 const App = () => {
@@ -43,12 +45,13 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        {anecdotes[selected]}
-      </div>
-      <Display num={vote[selected]} />
+      <h2>Anecdote today</h2>
+      <p>{anecdotes[selected]}</p>
+      <p>has {vote[selected]} votes</p>
       <Button onClick={handleVote} text='vote' />
       <Button onClick={handleNum} text='next anecdote' />
+      <h2>Anecdote with most votes</h2>
+      <Display arr={vote} anecdotes={anecdotes} />
     </div>
   )
 }
