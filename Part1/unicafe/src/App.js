@@ -15,6 +15,14 @@ const Percentage = (props) => {
 
 const Statistics = ({good, neutral, bad}) => {
   const total = good + neutral + bad
+  if (good===0&&neutral===0&&bad===0) {
+    return (
+      <>
+        <h2>statistics</h2>
+        <p>No feedback given</p>
+      </>
+    )
+  }
   return (
     <>
       <h2>statistics</h2>
