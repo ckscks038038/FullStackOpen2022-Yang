@@ -46,8 +46,8 @@ const App = () => {
   return (
     <div>
       <h2>Anecdote today</h2>
-      <p>{anecdotes[selected]}</p>
-      <p>has {vote[selected]} votes</p>
+      <p class="small">{anecdotes[selected]}</p>
+      <p class="small">has {vote[selected]} votes</p>
       <Button onClick={handleVote} text='vote' />
       <Button onClick={handleNum} text='next anecdote' />
       <h2>Anecdote with most votes</h2>
