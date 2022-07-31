@@ -2,20 +2,21 @@ import React from 'react';
 
 const Content = ({parts}) => { 
 
-    let sum = 0
-    parts.forEach(ele => sum += ele.exercises)
-    
+    let sum = parts.reduce((sum, part)=>{
+        return sum + part.exercises
+    }, 0)
+
     return(
-        <>
-            {parts.map(part => 
-                <Part 
-                    key={part.id} 
-                    name={part.name}
-                    exercises={part.exercises}    
-                />
-            )}
-            <b>total of {sum} exercises</b>
-        </>)}
+    <>
+        {parts.map(part => 
+            <Part 
+                key={part.id} 
+                name={part.name}
+                exercises={part.exercises}    
+            />
+        )}
+        <b>total of {sum} exercises</b>
+    </>)}
     
 const Part = ({name, exercises}) => {
     return <p>{name} {exercises}</p>
