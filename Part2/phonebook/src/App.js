@@ -4,7 +4,10 @@ const App = () => {
   const [persons, setPersons] = useState([{ name: 'Arto Hellas', number:123 } ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filter, setFilter] = useState('')
 
+  const personFiltered = persons.filter(person => person.name.includes(filter))
+  const personShown = filter.length > 0 ? personFiltered : persons
   const addPerson = (event) => {
     event.preventDefault()
     const personObject ={ name: newName, number: newNumber}
@@ -22,26 +25,35 @@ const App = () => {
     setNewName('')
     setNewNumber('')
   }
+  // Function that returns a function
+  const handleChange = (newFunction) => {
+    return (event) => {
+      console.log(event.target.value)
+      newFunction(event.target.value)
+    }
+  }
 
-  const handleNameChange = (event) => {
-    return setNewName(event.target.value)
-  }
-  const handleNumberChange = (event) => {
-    return setNewNumber(event.target.value)
-  }
-  
   return (
     <div>
       <h2>Phonebook</h2>
+      <form>
+      <div>
+          filter shown with: <input value={filter}
+                 onChange={handleChange(setFilter)}/>
+      </div>
+      <div>
+        <h2>Add a new</h2>
+      </div>
+      </form>
       <form onSubmit={addPerson}>
         <div>
           name: <input value={newName}
-                 onChange={handleNameChange} 
+                 onChange={handleChange(setNewName)} 
                   />
         </div>
         <div>
           number: <input value={newNumber}
-                 onChange={handleNumberChange} />
+                 onChange={handleChange(setNewNumber)} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -49,7 +61,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       <ul>
-        {persons.map(person =>
+        {personShown.map(person =>
           <li key={person.name}>{person.name} {person.number}</li>
         )}
       </ul>
