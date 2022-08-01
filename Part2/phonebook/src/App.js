@@ -8,16 +8,26 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('Button Clicked', event.target)
     const personObject ={ name: newName }
-    setPersons(persons.concat(personObject))
-    setNewName('')
+    // go through the persons array to check 
+    // if there is an object within the array identical to "personObject"
+    // if true, noitfy user with alert
+    let duplicated = persons.every(person => 
+      JSON.stringify(person.name) !== JSON.stringify(personObject.name))
 
+    if (!duplicated){
+      alert(`${newName} is already added to phonebook`)
+    }else {
+      setPersons(persons.concat(personObject))
+    }
+
+    setNewName('')
   }
+
   const handleNameChange = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
+    return setNewName(event.target.value)
   }
+  
   return (
     <div>
       <h2>Phonebook</h2>
@@ -25,7 +35,7 @@ const App = () => {
         <div>
           name: <input value={newName}
                  onChange={handleNameChange} 
-                />
+                  />
         </div>
         <div>
           <button type="submit">add</button>
