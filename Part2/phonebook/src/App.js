@@ -11,16 +11,14 @@ const App = () => {
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    console.log("effect")
     axios
     .get('http://localhost:3001/persons')
     .then(response => {
-      console.log("get and set")
       const data = response.data
       setPersons(data)
     })
   },[])
-  console.log("component rendered")
+
   const personFiltered = persons.filter(person => person.name.includes(filter))
   const personShown = filter.length > 0 ? personFiltered : persons
 
